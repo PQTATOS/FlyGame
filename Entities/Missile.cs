@@ -18,8 +18,8 @@ namespace FlyGame.Entities
         {
             Angle = 0;
             Cord = new Point(point.X + 15, point.Y - 10);
-            
-            Sprite = Image.FromFile("C:\\Users\\vic\\source\\repos\\FlyGame\\Sprites\\missile.png");
+
+            Sprite = Properties.Resources.missile;
         }
 
         public void MoveTo(int[] keys)

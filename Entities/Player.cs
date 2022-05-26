@@ -14,10 +14,11 @@ namespace FlyGame.Entities
             yVel = 0;
         public Player()
         {
-            Speed = 5;
+            Speed = 2;
             Health = 10;
             Cord = new Point(800, 100);
-            Sprite = Image.FromFile("C:\\Users\\vic\\source\\repos\\FlyGame\\Sprites\\battleship.png");
+            //Sprite = Image.FromFile("C:\\Users\\vic\\source\\repos\\FlyGame\\Sprites\\battleship.png");
+            Sprite = Properties.Resources.battleship;
         }
 
         public void LunchMissile()
@@ -27,26 +28,25 @@ namespace FlyGame.Entities
         
         public void MoveTo(int[] keys) //доделать
         {
-            //if(VelocityX != 0 || keys[3] != 0 || keys[2] != 0)
-            //    VelocityX += Acceleration * keys[3] - Acceleration * keys[2];
-            //if (VelocityY != 5 || keys[1] != 0 || keys[0] != 0)
-            //    VelocityY += Acceleration * keys[1] - Acceleration * keys[0] + 1;
-            //Cord.X += VelocityX;
-            //Cord.Y += VelocityY;
-
             ChangeAngle(keys);
+
             if(xVel >= -5 && xVel <= 5 || keys.Skip(2).Any(x => x != 0))
                 xVel += Speed * keys[3] - Speed * keys[2];
             if (yVel >= -5   || keys.Take(2).Any(x => x != 0))
-                yVel += Speed * keys[1] - Speed * keys[0];
-            Cord.X += xVel;
-            Cord.Y += yVel;
+                yVel += Speed * keys[1] - Speed * keys[0] + 1;
+            if (IsInBounds(Cord.X + xVel, 1736)) Cord.X += xVel;
+            if (IsInBounds(Cord.Y + yVel, 939)) Cord.Y += yVel;
 
         }
 
         private void ChangeAngle(int[] keys)
         {
             Angle += 10 * keys[2] - 10 * keys[3];
+        }
+
+        private bool IsInBounds(int cord, int border)
+        {
+            return cord > 0 && cord < border;
         }
 
         public void PlayAnimation(Graphics g)

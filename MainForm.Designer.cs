@@ -35,12 +35,15 @@ namespace FlyGame
             // 
             // startControl
             // 
+            this.startControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.startControl.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.startControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.startControl.Location = new System.Drawing.Point(0, 0);
             this.startControl.Name = "startControl";
             this.startControl.Size = new System.Drawing.Size(1720, 900);
             this.startControl.TabIndex = 0;
+            this.startControl.Load += new System.EventHandler(this.startControl_Load);
             // 
             // battleControl
             // 
@@ -49,7 +52,7 @@ namespace FlyGame
             this.battleControl.Location = new System.Drawing.Point(0, 0);
             this.battleControl.Name = "battleControl";
             this.battleControl.Size = new System.Drawing.Size(1720, 900);
-            this.battleControl.TabIndex = 1;
+            this.battleControl.TabIndex = 2;
             // 
             // MainForm
             // 
@@ -58,8 +61,10 @@ namespace FlyGame
             this.ClientSize = new System.Drawing.Size(1720, 900);
             this.Controls.Add(this.battleControl);
             this.Controls.Add(this.startControl);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "MainForm";
-            this.Text = "ХУЙ";
+            this.Text = "game";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
 
         }

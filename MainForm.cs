@@ -15,6 +15,7 @@ namespace FlyGame
         public MainForm()
         {         
             InitializeComponent();
+            
             Game = new Game();
             
             Game.StageChanged += Game_OnStageChanged;
@@ -52,6 +53,16 @@ namespace FlyGame
         {
             startControl.Hide();
             battleControl.Hide();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void startControl_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
