@@ -14,10 +14,8 @@ namespace FlyGame.Entities
             yVel = 0;
         public Player()
         {
-            Speed = 2;
-            Health = 10;
-            Cord = new Point(800, 100);
-            //Sprite = Image.FromFile("C:\\Users\\vic\\source\\repos\\FlyGame\\Sprites\\battleship.png");
+            Speed = 4;
+            Cord = new Point(800, 200);
             Sprite = Properties.Resources.battleship;
         }
 
@@ -26,29 +24,28 @@ namespace FlyGame.Entities
             Missile = new Missile(Cord);
         }
         
-        public void MoveTo(int[] keys) //доделать
+        public void MoveTo(int[] keys) 
         {
-            ChangeAngle(keys);
+            if (xVel < 8 && xVel > -8) xVel += Speed * keys[3] - Speed * keys[2];
+            else xVel -= xVel / Math.Abs(xVel);
 
-            if(xVel >= -5 && xVel <= 5 || keys.Skip(2).Any(x => x != 0))
-                xVel += Speed * keys[3] - Speed * keys[2];
-            if (yVel >= -5   || keys.Take(2).Any(x => x != 0))
-                yVel += Speed * keys[1] - Speed * keys[0] + 1;
-            if (IsInBounds(Cord.X + xVel, 1736)) Cord.X += xVel;
-            if (IsInBounds(Cord.Y + yVel, 939)) Cord.Y += yVel;
+            if (yVel < 10 && yVel > -10) yVel += Speed * keys[1] - Speed * keys[0] + 2;
+            else yVel -= yVel / Math.Abs(yVel) * 2;
 
+            Cord.Y += yVel;
+            Cord.X += xVel;
+
+            var bounds = Extensions.IsInGameBounds(Cord);
+
+            if (!bounds.Item1) Cord.X -= xVel;
+            if (!bounds.Item2) Cord.Y -= yVel;
         }
-
-        private void ChangeAngle(int[] keys)
+        private Tuple<bool, bool> IsInBounds(Point cord)
         {
-            Angle += 10 * keys[2] - 10 * keys[3];
+            var x = cord.X >= -64 && cord.X + 64 <= 1736;
+            var y = cord.Y >= -64 && cord.Y + 64 <= 939;
+            return Tuple.Create(x, y);
         }
-
-        private bool IsInBounds(int cord, int border)
-        {
-            return cord > 0 && cord < border;
-        }
-
         public void PlayAnimation(Graphics g)
         {
             g.DrawImage(Sprite, Cord.X, Cord.Y, new RectangleF(0,0,128,128), GraphicsUnit.Pixel);

@@ -28,7 +28,7 @@ namespace FlyGame
             KeyUp += new KeyEventHandler(OnKeyUp);
             PreviewKeyDown += new PreviewKeyDownEventHandler(OnPreviewKeyDown);
 
-            gameTimer.Interval = 50;
+            gameTimer.Interval = 30;
             gameTimer.Tick += new EventHandler(Update);
             gameTimer.Start();
         }
@@ -41,9 +41,18 @@ namespace FlyGame
         public void Update(object sender, EventArgs e)
         {
             if (IsPause) return;
+
             game.player.MoveTo(PlayerKeys);
+
             if (game.player.Missile != null)  game.player.Missile.MoveTo(PlayerMissileKeys);
             if (game.FreeFlyMissile != null) game.FreeFlyMissile.MoveTo();
+            game.CheckMissile();
+
+            if (game.player.Missile != null &&
+               Extensions.IsInObjectBounds(game.enemy.Cord, game.player.Missile.Cord))
+                game.enemy.MoveTo(game.player.Missile.Cord);
+            else game.enemy.MoveTo(game.player.Cord);
+
             Invalidate();
         }
 
@@ -55,7 +64,7 @@ namespace FlyGame
             game.player.PlayAnimation(g);
             if (game.player.Missile != null) game.player.Missile.DrawMissile(g);
             if (game.FreeFlyMissile != null) game.FreeFlyMissile.DrawMissile(g);
-            
+            game.enemy.DrawEnemy(g); 
         }
 
         //CONTROLS

@@ -7,10 +7,10 @@ namespace FlyGame.Entities
 {
     public class Missile
     {
-        int Speed = 10,
+        int Speed = 15,
             Damage;
         Image Sprite;
-        Point Cord;
+        public Point Cord;
         private int Angle = 0;
         int CurrentFrame = 0;
 

@@ -7,11 +7,9 @@ namespace FlyGame.Entities
 {
     public class Battleship
     {
-        protected int Speed,
-            Health;
+        protected int Speed;
         public Point Cord;
         public Image Sprite;
         public Missile Missile;
-
     }
 }
