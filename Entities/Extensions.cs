@@ -27,5 +27,12 @@ namespace FlyGame.Entities
             var y = cord.Y >= bounds[0] && cord.Y <= bounds[1];
             return x&&y;
         }
+
+        public static bool IsHitObject(Point cord1, Point cord2)
+        {
+            var x = cord1.X > cord2.X && cord1.X < cord2.X + 64;
+            var y = cord1.Y > cord2.Y && cord1.Y < cord2.Y + 64;
+            return x && y;
+        }
     }
 }

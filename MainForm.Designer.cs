@@ -29,6 +29,7 @@ namespace FlyGame
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.startControl = new FlyGame.StartControl();
             this.battleControl = new FlyGame.BattleControl();
             this.SuspendLayout();
@@ -48,6 +49,7 @@ namespace FlyGame
             // battleControl
             // 
             this.battleControl.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.battleControl.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("battleControl.BackgroundImage")));
             this.battleControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.battleControl.Location = new System.Drawing.Point(0, 0);
             this.battleControl.Name = "battleControl";

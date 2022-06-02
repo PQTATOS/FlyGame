@@ -7,11 +7,13 @@ namespace FlyGame.Entities
 {
     public class Enemy : Battleship
     {
-        public Enemy()
+        public int Number;
+        public Enemy(Point cord, int number)
         {
             Speed = 5;
             Sprite = Properties.Resources.enemy;
-            Cord = new Point(500,550);
+            Cord = cord;
+            Number = number;
         }
 
         public void MoveTo(Point playerCord)
@@ -21,17 +23,16 @@ namespace FlyGame.Entities
             var distance = Math.Sqrt(x*x + y*y);
             var diration = Math.Atan2(y,x);
 
-            if (distance > 400)
+            if (distance > 500)
             {
                 Cord.X += (int)(Speed * Math.Cos(diration));
                 Cord.Y += (int)(Speed * Math.Sin(diration));
             }
-            if(distance < 200)
+            if(distance < 400)
             {
                 Cord.X -= (int)(Speed * Math.Cos(diration));
                 Cord.Y -= (int)(Speed * Math.Sin(diration));
             }
-
         }
 
         public void DrawEnemy(Graphics g)

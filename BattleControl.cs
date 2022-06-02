@@ -42,17 +42,15 @@ namespace FlyGame
         {
             if (IsPause) return;
 
+            game.SpawnEnemy();
+
             game.player.MoveTo(PlayerKeys);
 
             if (game.player.Missile != null)  game.player.Missile.MoveTo(PlayerMissileKeys);
             if (game.FreeFlyMissile != null) game.FreeFlyMissile.MoveTo();
-            game.CheckMissile();
+            game.CheckPlayerMissile();
 
-            if (game.player.Missile != null &&
-               Extensions.IsInObjectBounds(game.enemy.Cord, game.player.Missile.Cord))
-                game.enemy.MoveTo(game.player.Missile.Cord);
-            else game.enemy.MoveTo(game.player.Cord);
-
+            game.UpdateEnemies();
             Invalidate();
         }
 
@@ -64,7 +62,9 @@ namespace FlyGame
             game.player.PlayAnimation(g);
             if (game.player.Missile != null) game.player.Missile.DrawMissile(g);
             if (game.FreeFlyMissile != null) game.FreeFlyMissile.DrawMissile(g);
-            game.enemy.DrawEnemy(g); 
+            foreach (var enemy in game.enemies)
+                enemy.DrawEnemy(g);
+             
         }
 
         //CONTROLS
@@ -138,6 +138,11 @@ namespace FlyGame
                     e.IsInputKey = true;
                     break;
             }
+        }
+
+        private void BattleControl_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

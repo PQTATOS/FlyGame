@@ -29,8 +29,16 @@ namespace FlyGame
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // BattleControl
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Name = "BattleControl";
+            this.Load += new System.EventHandler(this.BattleControl_Load);
+            this.ResumeLayout(false);
+
         }
 
         #endregion
