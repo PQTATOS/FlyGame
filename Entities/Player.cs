@@ -40,12 +40,7 @@ namespace FlyGame.Entities
             if (!bounds.Item1) Cord.X -= xVel;
             if (!bounds.Item2) Cord.Y -= yVel;
         }
-        private Tuple<bool, bool> IsInBounds(Point cord)
-        {
-            var x = cord.X >= -64 && cord.X + 64 <= 1736;
-            var y = cord.Y >= -64 && cord.Y + 64 <= 939;
-            return Tuple.Create(x, y);
-        }
+
         public void PlayAnimation(Graphics g)
         {
             g.DrawImage(Sprite, Cord.X, Cord.Y, new RectangleF(0,0,128,128), GraphicsUnit.Pixel);

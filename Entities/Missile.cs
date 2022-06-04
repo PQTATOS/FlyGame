@@ -10,20 +10,26 @@ namespace FlyGame.Entities
         int Speed = 15;
         Image Sprite;
         public Point Cord;
-        private int Angle = 0;
+        private double Angle = 0;
         int CurrentFrame = 0;
 
         public Missile(Point point)
         {
             Angle = 0;
             Cord = new Point(point.X + 15, point.Y - 10);
-
             Sprite = Properties.Resources.missile;
+        }
+        public Missile(Point point, double angel, Image sprite)
+        {
+            Angle = angel;
+            Cord = new Point(point.X + 15, point.Y - 10);
+            Sprite = sprite;
         }
 
         public void MoveTo(int[] keys)
         {
-            ChangeAngle(keys);
+            Angle += 5 * keys[1] - 5 * keys[0];
+
             var RadAngle = ((Angle + 90) * Math.PI)/ 180;
             Cord.X -= (int)(Speed * Math.Cos(RadAngle));
             Cord.Y -= (int)(Speed * Math.Sin(RadAngle));
@@ -35,15 +41,10 @@ namespace FlyGame.Entities
             Cord.Y -= (int)(Speed * Math.Sin(RadAngle));
         }
 
-        private void ChangeAngle(int[] keys)
-        {
-            Angle += 5 * keys[1] - 5 * keys[0];
-        }
-
         public void DrawMissile(Graphics g)
         {
             g.TranslateTransform((Cord.X+10), (Cord.Y+35));
-            g.RotateTransform(Angle);
+            g.RotateTransform((float)Angle);
             g.TranslateTransform(-(Cord.X + 10), -(Cord.Y + 35));
 
 
@@ -53,7 +54,7 @@ namespace FlyGame.Entities
             CurrentFrame++;
 
             g.TranslateTransform((Cord.X + 10), (Cord.Y + 35));
-            g.RotateTransform(-Angle);
+            g.RotateTransform(-(float)Angle);
             g.TranslateTransform(-(Cord.X + 10), -(Cord.Y + 35));
         }
     }

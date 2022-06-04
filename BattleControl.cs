@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -51,6 +52,7 @@ namespace FlyGame
             game.CheckPlayerMissile();
 
             game.UpdateEnemies();
+            game.UpdateEnemiesMissiles();
             Invalidate();
         }
 
@@ -64,6 +66,8 @@ namespace FlyGame
             if (game.FreeFlyMissile != null) game.FreeFlyMissile.DrawMissile(g);
             foreach (var enemy in game.enemies)
                 enemy.DrawEnemy(g);
+            foreach (var enemyMissile in game.EnemyMissiles.Where(x => x!= null))
+                enemyMissile.DrawMissile(g);
              
         }
 

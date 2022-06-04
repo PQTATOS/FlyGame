@@ -30,8 +30,8 @@ namespace FlyGame.Entities
 
         public static bool IsHitObject(Point cord1, Point cord2)
         {
-            var x = cord1.X > cord2.X && cord1.X < cord2.X + 64;
-            var y = cord1.Y > cord2.Y && cord1.Y < cord2.Y + 64;
+            var x = cord1.X > cord2.X - 20 && cord1.X < cord2.X + 84;
+            var y = cord1.Y > cord2.Y - 20 && cord1.Y < cord2.Y + 84;
             return x && y;
         }
     }

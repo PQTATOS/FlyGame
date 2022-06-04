@@ -18,7 +18,7 @@ namespace FlyGame.Entities
 
         private Point[] EnemySpawns = new Point[4] { new Point(-200, 400), new Point(500, -100),
                                                      new Point(2000, 400), new Point(600, 1700)};
-        private Missile[] EnemyMissiles = new Missile[3] { null, null, null};
+        public Missile[] EnemyMissiles = new Missile[3] { null, null, null};
         private Random rnd = new Random();
 
         public Game()
@@ -40,10 +40,15 @@ namespace FlyGame.Entities
                 if (EnemyMissiles[i] == null) return i;
             return -1;
         }
-        
-        private void DestroyEnemy(Enemy enemy)
+
+        public void UpdateEnemiesMissiles()
         {
-            enemies.Remove(enemy);
+            for(var i = 0; i < EnemyMissiles.Count(); i++)
+            {
+                CheckEnemiesMissile(EnemyMissiles[i], i);
+                if(EnemyMissiles[i] != null) EnemyMissiles[i].MoveTo();
+
+            }
         }
 
         public void UpdateEnemies()
@@ -53,16 +58,22 @@ namespace FlyGame.Entities
                 if (player.Missile != null &&
                    Extensions.IsInObjectBounds(enemy.Cord, player.Missile.Cord))
                     enemy.MoveTo(player.Missile.Cord);
-                else enemy.MoveTo(player.Cord);
-                
-                if(DestriedEnemies.Contains(enemy))
+                else 
+                    enemy.MoveTo(player.Cord);
+
+                if (EnemyMissiles[enemy.Number] == null)
                 {
-                    DestroyEnemy(enemy);
-                    DestriedEnemies.Remove(enemy);
-                    break;
+                    enemy.LunchMissile(player.Cord);
+                    EnemyMissiles[enemy.Number] = enemy.Missile;
                 }
             }
-            
+        }
+
+        public void CheckEnemiesMissile(Missile missile, int number)
+        {
+            if (missile == null) return;
+            if (!Extensions.IsInCustomBounds(missile.Cord, MissileBounders))
+                EnemyMissiles[number] = null;
         }
 
         public void LuchNewRocket()
@@ -71,7 +82,6 @@ namespace FlyGame.Entities
             player.LunchMissile();
         }
 
-        private List<Enemy> DestriedEnemies = new List<Enemy>();
         public void CheckPlayerMissile()
         {
             if (player.Missile != null &&
@@ -82,15 +92,15 @@ namespace FlyGame.Entities
                 FreeFlyMissile = null;
 
             if (player.Missile != null)
-            foreach(var enemy in enemies)
-            {
+                foreach (var enemy in enemies)
+                {
                     if (Extensions.IsHitObject(player.Missile.Cord, enemy.Cord))
                     {
-                        DestriedEnemies.Add(enemy);
+                        enemies.Remove(enemy);
                         player.Missile = null;
                         break;
                     }
-            }
+                }
         }
 
         private void ChangeStage(GameStage stage)

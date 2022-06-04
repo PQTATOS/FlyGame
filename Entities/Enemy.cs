@@ -35,6 +35,12 @@ namespace FlyGame.Entities
             }
         }
 
+        public void LunchMissile(Point playerCord)
+        {
+            var angel = Math.Atan2(playerCord.X - Cord.X, Cord.Y - playerCord.Y) * 180 / Math.PI;
+            Missile = new Missile(Cord, angel, Properties.Resources.missile);
+        }
+
         public void DrawEnemy(Graphics g)
         {
             g.DrawImage(Sprite, Cord.X, Cord.Y, new RectangleF(0, 0, 64, 64), GraphicsUnit.Pixel);
