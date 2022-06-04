@@ -15,6 +15,7 @@ namespace FlyGame.Entities
         public Missile FreeFlyMissile;
         public event Action<GameStage> StageChanged;
         private int[] MissileBounders = new int[4] { -500, 1736, -500, 2200 };
+        public bool IsPause = true;
 
         private Point[] EnemySpawns = new Point[4] { new Point(-200, 400), new Point(500, -100),
                                                      new Point(2000, 400), new Point(600, 1700)};
@@ -47,7 +48,6 @@ namespace FlyGame.Entities
             {
                 CheckEnemiesMissile(EnemyMissiles[i], i);
                 if(EnemyMissiles[i] != null) EnemyMissiles[i].MoveTo();
-
             }
         }
 
@@ -74,6 +74,12 @@ namespace FlyGame.Entities
             if (missile == null) return;
             if (!Extensions.IsInCustomBounds(missile.Cord, MissileBounders))
                 EnemyMissiles[number] = null;
+
+            if(Extensions.IsInCustomBounds(missile.Cord, new int[4] { player.Cord.Y + 40,
+                                   player.Cord.Y + 90, player.Cord.X + 28, player.Cord.X + 100}))
+            {
+                Start(GameStage.Dead);
+            }
         }
 
         public void LuchNewRocket()
@@ -101,6 +107,15 @@ namespace FlyGame.Entities
                         break;
                     }
                 }
+        }
+
+        public void Reset()
+        {
+            player = new Player();
+            enemies.Clear();
+            FreeFlyMissile = null;
+            EnemyMissiles = new Missile[3] { null, null, null };
+            IsPause = true;
         }
 
         private void ChangeStage(GameStage stage)

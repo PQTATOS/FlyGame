@@ -32,6 +32,7 @@ namespace FlyGame
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.startControl = new FlyGame.StartControl();
             this.battleControl = new FlyGame.BattleControl();
+            this.deadControl = new FlyGame.DeadControl();
             this.SuspendLayout();
             // 
             // startControl
@@ -56,11 +57,20 @@ namespace FlyGame
             this.battleControl.Size = new System.Drawing.Size(1720, 900);
             this.battleControl.TabIndex = 2;
             // 
+            // deadControl
+            // 
+            this.deadControl.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.deadControl.Location = new System.Drawing.Point(0, 0);
+            this.deadControl.Name = "deadControl";
+            this.deadControl.Size = new System.Drawing.Size(1736, 939);
+            this.deadControl.TabIndex = 3;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1720, 900);
+            this.Controls.Add(this.deadControl);
             this.Controls.Add(this.battleControl);
             this.Controls.Add(this.startControl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -75,5 +85,6 @@ namespace FlyGame
 
         private StartControl startControl;
         private BattleControl battleControl;
+        private DeadControl deadControl;
     }
 }

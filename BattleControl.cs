@@ -14,7 +14,6 @@ namespace FlyGame
     {
         Game game;
         Timer gameTimer;
-        bool IsPause = true;
         int[] PlayerKeys = new int[4] {0, 0, 0, 0 };
         int[] PlayerMissileKeys = new int[3] { 0, 0, 0};
         
@@ -41,7 +40,7 @@ namespace FlyGame
 
         public void Update(object sender, EventArgs e)
         {
-            if (IsPause) return;
+            if (game == null || game.IsPause) return;
 
             game.SpawnEnemy();
 
@@ -123,7 +122,7 @@ namespace FlyGame
                     game.LuchNewRocket();
                     break;
                 case (Keys.Escape):
-                    IsPause = !IsPause;
+                    game.IsPause = !game.IsPause;
                     break;
             }    
         }

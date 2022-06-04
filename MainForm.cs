@@ -15,7 +15,6 @@ namespace FlyGame
         public MainForm()
         {         
             InitializeComponent();
-            
             Game = new Game();
             
             Game.StageChanged += Game_OnStageChanged;
@@ -29,10 +28,20 @@ namespace FlyGame
                 case GameStage.Battle:
                     ShowBattleScreen();
                     break;
+                case GameStage.Dead:
+                    ShowDeadScreen();
+                    break;
                 default:
                     ShowStartScreen();
                     break;
             }
+        }
+
+        private void ShowDeadScreen()
+        {
+            HideScreens();
+            deadControl.GameSetUp(Game);
+            deadControl.Show();
         }
 
         private void ShowStartScreen()
@@ -53,6 +62,7 @@ namespace FlyGame
         {
             startControl.Hide();
             battleControl.Hide();
+            deadControl.Hide();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
