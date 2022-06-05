@@ -20,13 +20,20 @@ namespace FlyGame
         public void GameSetUp(Game Game)
         {
             game = Game;
-            game.Reset();
             button1.Click += Restart;
         }
 
         private void Restart(object sender, EventArgs e)
         {
+            game.Reset();
             game.Start(GameStage.Battle);
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            var g = e.Graphics;
+
+            g.DrawString("Ваш результат: " + game.Score, new Font("Arial", 32), Brushes.White, new Point(628, 269));
         }
     }
 }

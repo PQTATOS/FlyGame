@@ -21,6 +21,7 @@ namespace FlyGame.Entities
                                                      new Point(2000, 400), new Point(600, 1700)};
         public Missile[] EnemyMissiles = new Missile[3] { null, null, null};
         private Random rnd = new Random();
+        public int Score = 0;
 
         public Game()
         {
@@ -75,7 +76,7 @@ namespace FlyGame.Entities
             if (!Extensions.IsInCustomBounds(missile.Cord, MissileBounders))
                 EnemyMissiles[number] = null;
 
-            if(Extensions.IsInCustomBounds(missile.Cord, new int[4] { player.Cord.Y + 40,
+            if(Extensions.IsInCustomBounds(missile.Cord, new int[4] { player.Cord.Y + 20,
                                    player.Cord.Y + 90, player.Cord.X + 28, player.Cord.X + 100}))
             {
                 Start(GameStage.Dead);
@@ -103,6 +104,7 @@ namespace FlyGame.Entities
                     if (Extensions.IsHitObject(player.Missile.Cord, enemy.Cord))
                     {
                         enemies.Remove(enemy);
+                        Score++;
                         player.Missile = null;
                         break;
                     }
@@ -116,6 +118,7 @@ namespace FlyGame.Entities
             FreeFlyMissile = null;
             EnemyMissiles = new Missile[3] { null, null, null };
             IsPause = true;
+            Score = 0;
         }
 
         private void ChangeStage(GameStage stage)

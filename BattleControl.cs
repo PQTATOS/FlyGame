@@ -40,7 +40,11 @@ namespace FlyGame
 
         public void Update(object sender, EventArgs e)
         {
-            if (game == null || game.IsPause) return;
+            if (game == null || game.IsPause)
+            {
+                Invalidate();
+                return;
+            }
 
             game.SpawnEnemy();
 
@@ -54,12 +58,17 @@ namespace FlyGame
             game.UpdateEnemiesMissiles();
             Invalidate();
         }
-
+        
         protected override void OnPaint(PaintEventArgs e)
         {
             var g = e.Graphics;
+            if (game.IsPause)
+            {
+                g.DrawString("ПАУЗА", new Font("Arial", 32), Brushes.White, new Point(800, 469));
+                g.DrawString("Нажмите ESC чтобы продолжить", new Font("Arial", 20), Brushes.White, new Point(700, 519));
+            }
             
-
+            g.DrawString("Счёт: " + game.Score, new Font("Arial", 16), Brushes.White, new Point(1536, 30));
             game.player.PlayAnimation(g);
             if (game.player.Missile != null) game.player.Missile.DrawMissile(g);
             if (game.FreeFlyMissile != null) game.FreeFlyMissile.DrawMissile(g);

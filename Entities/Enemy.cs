@@ -8,6 +8,7 @@ namespace FlyGame.Entities
     public class Enemy : Battleship
     {
         public int Number;
+        private int currentFrame = 0;
         public Enemy(Point cord, int number)
         {
             Speed = 5;
@@ -38,12 +39,14 @@ namespace FlyGame.Entities
         public void LunchMissile(Point playerCord)
         {
             var angel = Math.Atan2(playerCord.X - Cord.X, Cord.Y - playerCord.Y) * 180 / Math.PI;
-            Missile = new Missile(Cord, angel, Properties.Resources.missile);
+            Missile = new Missile(Cord, angel, Properties.Resources.enemyMissile);
         }
 
         public void DrawEnemy(Graphics g)
         {
-            g.DrawImage(Sprite, Cord.X, Cord.Y, new RectangleF(0, 0, 64, 64), GraphicsUnit.Pixel);
+            g.DrawImage(Sprite, Cord.X, Cord.Y, new RectangleF(64 * currentFrame, 0, 64, 64), GraphicsUnit.Pixel);
+            if (currentFrame == 3) currentFrame = 0;
+            currentFrame++;
         }
     }
 }

@@ -34,12 +34,14 @@ namespace FlyGame
             // 
             // button1
             // 
+            this.button1.BackColor = System.Drawing.Color.White;
+            this.button1.Font = new System.Drawing.Font("Arial Narrow", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.button1.Location = new System.Drawing.Point(681, 515);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(250, 84);
             this.button1.TabIndex = 0;
-            this.button1.Text = "Restart";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Text = "RESTART";
+            this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.Restart);
             // 
             // DeadControl
